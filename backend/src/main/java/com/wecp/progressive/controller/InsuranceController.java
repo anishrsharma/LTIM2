@@ -1,28 +1,82 @@
 package com.wecp.progressive.controller;
 
 import com.wecp.progressive.entity.Insurance;
+import com.wecp.progressive.service.InsuranceService;
+import com.wecp.progressive.service.impl.InsuranceServiceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/insurance")
 public class InsuranceController {
+
+    @Autowired
+    InsuranceServiceImpl insuranceServiceImpl;
+
+    @GetMapping
     public ResponseEntity<List<Insurance>> getAllInsurances() {
-        return null;
+        try {
+            return new ResponseEntity<>(insuranceServiceImpl.getAllInsurances(), HttpStatus.OK);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    public ResponseEntity<Insurance> getInsuranceById(int insuranceId) {
-        return null;
+    @GetMapping("/{insuranceId}")
+    public ResponseEntity<Insurance> getInsuranceById(@PathVariable int insuranceId) {
+        try {
+            return new ResponseEntity<>(insuranceServiceImpl.getInsuranceById(insuranceId), HttpStatus.OK);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    public ResponseEntity<Integer> createInsurance(Insurance insurance) {
-        return null;
+    @PostMapping
+    public ResponseEntity<?> createInsurance(Insurance insurance) {
+        try {
+            return new ResponseEntity<>(insuranceServiceImpl.getAllInsurances(), HttpStatus.CREATED);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
+    @PutMapping("/{insuranceId}")
     public ResponseEntity<Void> updateInsurance(int insuranceId, Insurance insurance) {
-        return null;
+        try {
+            insurance.setInsuranceId(insuranceId);
+            insuranceServiceImpl.updateInsurance(insurance);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public ResponseEntity<Void> deleteInsurance(int insuranceId) {
-        return null;
+        try {
+            insuranceServiceImpl.getAllInsurances();
+            return new ResponseEntity<>( HttpStatus.OK);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

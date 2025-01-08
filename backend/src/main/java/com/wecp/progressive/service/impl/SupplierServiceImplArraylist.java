@@ -1,5 +1,6 @@
 package com.wecp.progressive.service.impl;
 
+import com.wecp.progressive.dao.SupplierDAO;
 import com.wecp.progressive.entity.Supplier;
 import com.wecp.progressive.service.SupplierService;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,18 @@ import java.util.List;
 @Service
 public class SupplierServiceImplArraylist implements SupplierService {
 
-    private static List<Supplier> supplierList = new ArrayList<>();
+    private SupplierDAO supplierDAO;
+
+    public SupplierServiceImplArraylist(SupplierDAO supplierDAO) {
+        this.supplierDAO = supplierDAO;
+    }
+
+
+    private static List<Supplier> supplierList;
+    
+    public SupplierServiceImplArraylist(){
+        supplierList = new ArrayList<>();
+    }
 
     @Override
     public List<Supplier> getAllSuppliers() {
@@ -27,9 +39,10 @@ public class SupplierServiceImplArraylist implements SupplierService {
     @Override
     public List<Supplier> getAllSuppliersSortedByName() {
         List<Supplier> sortedSupplier = supplierList;
-        sortedSupplier.sort(Comparator.comparing(Supplier::getSupplierName)); // Sort by supplier name
+        sortedSupplier.sort(Comparator.comparing(Supplier::getSupplierName)); 
         return sortedSupplier;
     }
+
 
     @Override
     public void emptyArrayList() {

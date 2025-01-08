@@ -1,52 +1,63 @@
 package com.wecp.progressive.service.impl;
 
-import com.wecp.progressive.entity.Product;
-import com.wecp.progressive.repository.ProductRepository;
-import com.wecp.progressive.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.SQLException;
 import java.util.List;
 
-@Service
-public class ProductServiceImplJpa  implements ProductService {
+import javax.transaction.Transactional;
 
-    private final ProductRepository productRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.wecp.progressive.dao.ProductDAO;
+import com.wecp.progressive.entity.Product;
+import com.wecp.progressive.exception.InsufficientCapacityException;
+import com.wecp.progressive.repository.ProductRepository;
+import com.wecp.progressive.repository.WarehouseRepository;
+import com.wecp.progressive.service.ProductService;
+
+@Service
+public class ProductServiceImplJpa implements ProductService  {
+
+    private ProductRepository productRepository;
 
     @Autowired
-    public ProductServiceImplJpa(ProductRepository productRepository) {
+    WarehouseRepository warehouseRepository;
+
+    public ProductServiceImplJpa (ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-
+   
     @Override
-    public List<Product> getAllProducts() throws SQLException {
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
     @Override
-    public Product getProductById(int productId) throws SQLException {
+    public Product getProductById(int productId) {
         return productRepository.findByProductId(productId);
     }
 
     @Override
-    public int addProduct(Product product) throws SQLException {
+    public int addProduct(Product product) {
+        if(product.getWarehouse().getCapacity() < 1)
+            throw new InsufficientCapacityException("Warehouse full");
         return productRepository.save(product).getProductId();
     }
 
     @Override
-    public void updateProduct(Product product) throws SQLException {
-        productRepository.save(product).getProductId();
+    @Transactional
+    public void updateProduct(Product product) {
+        productRepository.save(product);
     }
 
     @Override
-    public void deleteProduct(int productId) throws SQLException {
+    @Transactional
+    public void deleteProduct(int productId) {
         productRepository.deleteById(productId);
+        
     }
 
-    @Override
-    public List<Product> getAllProductByWarehouse(int warehouseId) throws SQLException {
+    public List<Product> getAllProductByWarehouse(int warehouseId) {
         return productRepository.findAllByWarehouse_WarehouseId(warehouseId);
     }
+
 }

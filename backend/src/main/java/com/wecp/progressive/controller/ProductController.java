@@ -32,7 +32,7 @@ public class ProductController {
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -42,8 +42,9 @@ public class ProductController {
         try {
             int productId = productServiceImplJpa.addProduct(product);
             return new ResponseEntity<>(productId, HttpStatus.CREATED);
-        } catch (SQLException e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            // Return a generic error message for any other exceptions
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -53,7 +54,7 @@ public class ProductController {
             product.setProductId(productId);
             productServiceImplJpa.updateProduct(product);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -63,7 +64,7 @@ public class ProductController {
         try {
             productServiceImplJpa.deleteProduct(productId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
