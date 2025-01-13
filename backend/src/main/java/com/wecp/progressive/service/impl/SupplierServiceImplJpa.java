@@ -21,27 +21,19 @@ import java.util.List;
 @Service
 public class SupplierServiceImplJpa implements SupplierService {
 
-<<<<<<< HEAD
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
     WarehouseRepository warehouseRepository;
-=======
-    private final SupplierRepository supplierRepository;
->>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9
 
     @Autowired
     ProductRepository productRepository;
 
     @Autowired
-<<<<<<< HEAD
     ShipmentRepository shipmentRepository;
 
     private final SupplierRepository supplierRepository;
-=======
-    WarehouseRepository warehouseRepository;
->>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9
 
     @Autowired
     public SupplierServiceImplJpa(SupplierRepository supplierRepository) {
@@ -54,7 +46,6 @@ public class SupplierServiceImplJpa implements SupplierService {
     }
 
     @Override
-<<<<<<< HEAD
     public int addSupplier(Supplier supplier) throws SupplierAlreadyExistsException {
         Supplier oldUser = supplierRepository.findByUsername(supplier.getUsername());
         if (oldUser != null) {
@@ -65,11 +56,6 @@ public class SupplierServiceImplJpa implements SupplierService {
             throw new SupplierAlreadyExistsException("User with the given email address already exists: " + supplier.getEmail());
         }
         supplier.setPassword(passwordEncoder.encode(supplier.getPassword()));
-=======
-    public int addSupplier(Supplier supplier) throws SQLException {
-        if(supplierRepository.findByEmail(supplier.getEmail()) != null && supplierRepository.findByUsername(supplier.getUsername()) != null)
-            throw new SupplierAlreadyExistsException("Supplier already exists with this email or username");
->>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9
         return supplierRepository.save(supplier).getSupplierId();
     }
 
@@ -81,7 +67,6 @@ public class SupplierServiceImplJpa implements SupplierService {
     }
 
     @Override
-<<<<<<< HEAD
     public void updateSupplier(Supplier supplier) throws SupplierAlreadyExistsException {
         if (!supplier.getRole().isBlank()) {
             Supplier oldUser = supplierRepository.findByUsername(supplier.getUsername());
@@ -93,19 +78,12 @@ public class SupplierServiceImplJpa implements SupplierService {
             }
             supplierRepository.save(supplier);
         }
-=======
-    public void updateSupplier(Supplier supplier) throws SQLException {
-            supplierRepository.save(supplier);
->>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9
     }
 
     @Override
     @Transactional
     public void deleteSupplier(int supplierId) throws SQLException {
-<<<<<<< HEAD
         shipmentRepository.deleteBySupplierId(supplierId);
-=======
->>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9
         productRepository.deleteBySupplierId(supplierId);
         warehouseRepository.deleteBySupplierId(supplierId);
         supplierRepository.deleteBySupplierId(supplierId);
@@ -119,9 +97,4 @@ public class SupplierServiceImplJpa implements SupplierService {
         }
         throw new SupplierDoesNotExistException("Supplier with the given supplierId does not exists");
     }
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9
