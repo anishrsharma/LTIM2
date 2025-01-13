@@ -37,10 +37,14 @@ public class InsuranceController {
     @GetMapping("/{insuranceId}")
     public ResponseEntity<Insurance> getInsuranceById(@PathVariable int insuranceId) {
         try {
+<<<<<<< HEAD
             Insurance inr = insuranceServiceImpl.getInsuranceById(insuranceId);
             if(inr == null)
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             return new ResponseEntity<>(inr, HttpStatus.OK);
+=======
+            return new ResponseEntity<>(insuranceServiceImpl.getInsuranceById(insuranceId), HttpStatus.OK);
+>>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();

@@ -30,7 +30,11 @@ public class InsuranceServiceImpl implements InsuranceService  {
     @Override
     public Insurance getInsuranceById(int insuranceId) {
         // TODO Auto-generated method stub
+<<<<<<< HEAD
         return insuranceRepository.findById(insuranceId).orElse(null);
+=======
+        return insuranceRepository.findById(insuranceId).get();
+>>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9
     }
 
     @Override

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 package com.wecp.progressive.service;
 
@@ -56,10 +57,45 @@ public class LoginService implements UserDetailsService {
 
     public void deleteUser(Integer id) {
         supplierRepository.deleteBySupplierId(id);
+=======
+package com.wecp.progressive.service;
+
+import com.wecp.progressive.entity.Supplier;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.List;
+import java.util.Optional;
+
+public class LoginService implements UserDetailsService {
+
+    public List<Supplier> getAllUsers() {
+        return null;
+    }
+
+    public Optional<Supplier> getUserById(Integer userId) {
+        return null;
+    }
+
+    public Supplier getSupplierByName(String username) {
+        return null;
+    }
+
+    public Supplier createUser(Supplier user) {
+        return null;
+    }
+
+    public Supplier updateUser(Supplier user) {
+        return null;
+    }
+
+    public void deleteUser(Integer id) {
+>>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
+<<<<<<< HEAD
         Supplier user = supplierRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -72,3 +108,8 @@ public class LoginService implements UserDetailsService {
         );
     }
 }
+=======
+        return null;
+    }
+}
+>>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9

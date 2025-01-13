@@ -1,5 +1,6 @@
 package com.wecp.progressive.jwt;
 
+<<<<<<< HEAD
 
 import com.wecp.progressive.entity.Supplier;
 import com.wecp.progressive.repository.SupplierRepository;
@@ -82,3 +83,8 @@ public class JwtUtil {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
+=======
+public class JwtUtil {
+
+}
+>>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9

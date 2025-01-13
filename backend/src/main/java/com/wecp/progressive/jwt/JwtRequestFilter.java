@@ -1,5 +1,6 @@
 package com.wecp.progressive.jwt;
 
+<<<<<<< HEAD
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,4 +66,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+=======
+public class JwtRequestFilter  {
+
+>>>>>>> 8acc72b1e911af2c02e73ead4a2d075d54614ca9
 }
